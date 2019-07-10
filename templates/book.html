@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col col-md-8">
+                <h1>Book details</h1>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">ISBN number:</th>
+                            <td>{{ book[1] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Title:</th>
+                            <td>{{ book[2] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Author:</th>
+                            <td>{{ book[3] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Publication year:</th>
+                            <td>{{ book[4] }}</td>
+                        </tr>
+                        {% if goodreads %}
+                        <tr>
+                            <th scope="row">Goodreads average rating:</td>
+                            <td>{{ goodreads["average_rating"] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Goodreads number of ratings:</td>
+                            <td>{{ goodreads["ratings_count"] }}</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <hr>
+            </div>
+        </div>
+
+        {% if reviews %}
+            <div class="row justify-content-center">
+                <div class="col col-md-8">
+                    <h4>Reviews</h4>
+                    <ul class="list-group">
+                        {% for review in reviews %}
+                            <hr>
+                            <li class="list-group-item">
+                                <h5>Review by: {{ review.user_name }}</h5>
+                                <p><b>Rating: {{ review.rating }}</b></p>
+                                <p><i>{{ review.comment }}</i></p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row justify-content-center">
+            <div class="col col-md-8">
+                <h4>Leave a review</h4>
+                <form action="{{ url_for('book') + '?isbn=' + book[1]  }}" method="post">
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <select class="form-control" id="rating" name="rating" required>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="review">Review text:</label>
+                        <textarea class="form-control" id="review" name="review" rows="10" required>
+                        </textarea> 
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

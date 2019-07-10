@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col col-md-8">
+                <h2>Search for books</h2>
+                <p>Books can be found via ISBN, title, author or a partial of any of these. </p>
+                <form action="{{ url_for('search') }}" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search" name="search" placeholder="Enter book title for example" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+
+    {% if books %}
+        <div class="row justify-content-center">
+            <div class="col col-md-8">
+                <hr>
+                <h4>List of books</h4>
+                <ul class="list-group">
+                    {% for book in books %}
+                        <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-9">{{ book[1] }}, {{ book[2] }}, {{ book[3] }}, {{ book[4] }}</div>
+                                    <div class="col-3"><a href="{{ url_for('book') + '?isbn=' + book[1] }}"><button class="btn float-right">Details</button></a></div>
+                                </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+    {% if message %}
+        <div class="row justify-content-center">
+            <div class="col col-md-8">
+                <hr>
+                <p>{{ message }}</p>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+
+{% endblock %}

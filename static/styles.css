@@ -1,0 +1,15 @@
+.container {
+  min-height: calc(100vh - 56px); }
+
+.bg {
+  background-image: url("./assets/library.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; }
+
+.col {
+  background-color: white;
+  padding: 15px; }
+
+/*# sourceMappingURL=styles.css.map */
